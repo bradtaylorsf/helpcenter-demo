@@ -57,4 +57,10 @@ body {
 
 /* Add more styles as needed */
 
-
+.persona-picker {
+  position: fixed; /* or 'absolute' depending on your layout */
+  left: 0;
+  top: 50%; /* Adjust as necessary */
+  transform: translateY(-50%);
+  z-index: 10;
+}

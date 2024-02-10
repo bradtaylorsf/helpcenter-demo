@@ -1,40 +1,18 @@
-import { createClient } from 'contentful';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-
-const client = createClient({
-  space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID,
-  accessToken: process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN,
-});
-
-const personas = [
-  { name: "Techie Tim", userPersona: "Developer", planType: "Enterprise Plan", location: "North America" },
-  { name: "Analytical Amy", userPersona: "Analyst", planType: "Team Plan", location: "Europe" },
-  { name: "User-focused Uma", userPersona: "User", planType: "Free Plan", location: "Asia-Pacific" },
-  { name: "Admin Alex", userPersona: "Administrator", planType: "Team Plan", location: "Latin America" },
-  { name: "DevOps Dani", userPersona: "Developer", planType: "Enterprise Plan", location: "Middle East & Africa" },
-];
+import PersonaPicker from '../components/PersonaPicker';
+import personas from '../lib/personas';
+import contentfulClient from '../lib/contentfulClient';
+import initialPersona from '../lib/initialPersona';
 
 export default function Home() {
   const [articles, setArticles] = useState([]);
-
-  // Try to read the saved persona from the cookie at the initial state setup
-  const initialPersona = () => {
-    const savedPersona = Cookies.get('selectedPersona');
-    if (savedPersona) {
-      const persona = JSON.parse(savedPersona);
-      const matchedPersona = personas.find(p => p.name === persona.name);
-      return matchedPersona || personas[0]; // Return the matched persona or default to the first one
-    }
-    return personas[0]; // Default to the first persona if there's no cookie
-  };
-
   const [selectedPersona, setSelectedPersona] = useState(initialPersona);
 
   useEffect(() => {
     // Fetch articles from Contentful
-    client.getEntries({ content_type: 'helpCenterArticle' })
+    contentfulClient.getEntries({ content_type: 'helpCenterArticle' })
       .then((response) => setArticles(response.items))
       .catch(console.error);
   }, []);
@@ -77,22 +55,8 @@ export default function Home() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
+      <PersonaPicker onPersonaChange={setSelectedPersona} />
       <h1 className="text-3xl font-bold text-center mb-10">Articles</h1>
-      <div className="mb-6">
-        <select onChange={handlePersonaChange} value={selectedPersona ? selectedPersona.name : ''} className="form-select block w-full mt-1">
-          {personas.map((persona) => (
-            <option key={persona.name} value={persona.name}>{persona.name}</option>
-          ))}
-        </select>
-        {selectedPersona && (
-          <div className="mt-4">
-            <p><strong>Selected Persona:</strong> {selectedPersona.name}</p>
-            <p><strong>Role:</strong> {selectedPersona.userPersona}</p>
-            <p><strong>Plan Type:</strong> {selectedPersona.planType}</p>
-            <p><strong>Location:</strong> {selectedPersona.location}</p>
-          </div>
-        )}
-      </div>
       <ul className="space-y-4">
         {filteredArticles.map(article => (
           <li key={article.sys.id} className={`transition transform hover:scale-105 duration-300 ease-in-out bg-white shadow-lg rounded-lg p-6 border-4 ${getBorderColorClass(article.fields.planType)}`}>
