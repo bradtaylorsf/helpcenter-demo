@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* styles/globals.css */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f9fafb;
+  color: #111827;
+  line-height: 1.6;
+}
+
+.rich-text {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.rich-text h1, .rich-text h2, .rich-text h3, .rich-text h4 {
+  color: #111827;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.rich-text h1 {
+  font-size: 2.25rem; /* 36px */
+  font-weight: 700;
+}
+
+.rich-text h2 {
+  font-size: 1.875rem; /* 30px */
+  font-weight: 600;
+}
+
+.rich-text p {
+  margin-bottom: 1rem;
+  font-size: 1rem; /* 16px */
+  color: #4b5563; /* Slightly lighter than the default text color for better readability */
+}
+
+.rich-text a {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.rich-text ul, .rich-text ol {
+  padding-left: 20px;
+  margin-bottom: 1rem;
+}
+
+.rich-text li {
+  margin-bottom: 0.5rem;
+}
+
+/* Add more styles as needed */
+
+
