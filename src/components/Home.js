@@ -6,14 +6,43 @@ import personas from '../lib/personas';
 import contentfulClient from '../lib/contentfulClient';
 import initialPersona from '../lib/initialPersona';
 
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+
+const extractTagsFromRichText = (richTextDocument) => {
+  let tags = [];
+  console.log("Rich Text Document:", richTextDocument);
+  const findTags = (node) => {
+    if (node.nodeType === BLOCKS.EMBEDDED_ENTRY || node.nodeType === INLINES.EMBEDDED_ENTRY) {
+      // Here, you would access the embedded entry and its tags
+      // This is a simplified example; actual implementation may vary based on your content model
+      const userPersonas = node.data.target.fields.userPersona || [];
+      const locations = node.data.target.fields.location ? [node.data.target.fields.location] : [];
+      tags = [...tags, ...userPersonas, ...locations];
+    } else if (node.content) {
+      node.content.forEach(findTags);
+    }
+  };
+
+  findTags(richTextDocument);
+  return tags;
+};
+
+
 export default function Home() {
   const [articles, setArticles] = useState([]);
   const [selectedPersona, setSelectedPersona] = useState(initialPersona);
 
   useEffect(() => {
-    // Fetch articles from Contentful
     contentfulClient.getEntries({ content_type: 'helpCenterArticle' })
-      .then((response) => setArticles(response.items))
+      .then((response) => {
+        const enrichedArticles = response.items.map(article => {
+          const richTextDocument = article.fields.articleContent; // Assuming this is your rich text field
+          const tags = extractTagsFromRichText(richTextDocument);
+          return { ...article, extractedTags: tags };
+        });
+        setArticles(enrichedArticles);
+      })
       .catch(console.error);
   }, []);
 
@@ -22,12 +51,6 @@ export default function Home() {
     Cookies.set('selectedPersona', JSON.stringify(selectedPersona), { expires: 7 });
   }, [selectedPersona]);
 
-
-  const handlePersonaChange = (event) => {
-    const persona = personas.find(p => p.name === event.target.value);
-    console.log("New selected persona:", persona);
-    setSelectedPersona(persona);
-  };
 
   const filteredArticles = selectedPersona ? articles.filter(article => {
     // Check if the selected persona's planType is included in the article's planType array
@@ -66,7 +89,7 @@ export default function Home() {
             </Link>
             {/* Assuming tags are an array of strings under article.fields.tags */}
             <div className="flex flex-wrap gap-2 mt-2">
-              {article.fields.tags?.map((tag, index) => (
+              {article.extractedTags?.map((tag, index) => (
                 <span key={index} className="bg-gray-200 text-gray-800 text-sm font-semibold px-2.5 py-0.5 rounded">
                   {tag}
                 </span>
