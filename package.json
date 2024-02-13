@@ -6,14 +6,23 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "processEntries": "node ./src/lib/pinecone.js"
   },
   "dependencies": {
+    "@contentful/rich-text-plain-text-renderer": "^16.0.11",
     "@contentful/rich-text-react-renderer": "^15.19.4",
     "@contentful/rich-text-types": "^16.3.4",
+    "@pinecone-database/pinecone": "^2.0.1",
     "contentful": "^10.6.21",
+    "dotenv": "^16.4.2",
+    "flowise-embed": "^1.0.18",
+    "flowise-embed-react": "^1.0.2",
+    "gpt3-tokenizer": "^1.1.5",
     "js-cookie": "^3.0.5",
+    "langchain": "^0.1.17",
     "next": "14.1.0",
+    "openai": "^4.27.0",
     "react": "^18",
     "react-dom": "^18"
   },

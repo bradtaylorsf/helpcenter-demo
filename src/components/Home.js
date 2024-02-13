@@ -1,13 +1,17 @@
+// ./src/components/Home.js
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import PersonaPicker from '../components/PersonaPicker';
-import personas from '../lib/personas';
 import contentfulClient from '../lib/contentfulClient';
 import initialPersona from '../lib/initialPersona';
 
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+import dynamic from 'next/dynamic';
+const BubbleChat = dynamic(() => import('flowise-embed-react').then((mod) => ({ default: mod.BubbleChat })), {
+  ssr: false,
+});
 
 const extractTagsFromRichText = (richTextDocument) => {
   let tags = [];
@@ -75,6 +79,47 @@ export default function Home() {
     return 'border-gray-200'; // Default border color
   };
 
+  const handleFetchArticlesClick = async () => {
+    // await fetchEntriesForContentType('helpCenterArticle');
+    // await fetchEntriesForContentType('ripplingHelpArticle');
+  };
+
+  const chatflowConfig = {
+    "pineconeMetadataFilter": {
+      "$or": [
+        {
+          "planType": {
+            "$eq": selectedPersona.planType
+          }
+        },
+        {
+          "userPersona": {
+            "$in": [
+              selectedPersona.userPersona,
+            ]
+          }
+        },
+        {
+          "location": {
+            "$eq": selectedPersona.location,
+          }
+        }
+      ]
+    },
+    "systemMessagePrompt": `
+    You are a helpful assistant for a company called AnswerAI.
+    You answer questions about the company's products and services and give users basic account information.
+    You have access to help center articles and the user infromation, role, plan type and location.
+    Answer the users query to the best of your ability based on the context provided. If you are unable to answer the query, you can transfer the conversation to a human agent.
+    You are currently helping the following user:
+    User Name: ${selectedPersona.name}
+    User Plan Type: ${selectedPersona.planType}
+    User Role: ${selectedPersona.userPersona} 
+    User Location: ${selectedPersona.location}
+    When giving responses always keep in mind the user's role and location and provide the most relevant information. Always greet the user and ask for their query. If you are unable to answer the query, you can transfer the conversation to a human agent.
+    `,
+  }
+
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
@@ -98,6 +143,7 @@ export default function Home() {
           </li>
         ))}
       </ul>
+      <BubbleChat chatflowid="c8b61941-f80a-4019-8a89-e4e1e6118816" apiHost="http://localhost:3000" chatflowConfig={chatflowConfig} />
     </div>
   );
 }

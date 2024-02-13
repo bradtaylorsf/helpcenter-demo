@@ -10,6 +10,15 @@
         "port": 9229,
         "skipFiles": ["<node_internals>/**"],
         "console": "integratedTerminal"
+      },
+      {
+        "type": "pwa-node",
+        "request": "launch",
+        "name": "Process Entries",
+        "runtimeExecutable": "pnpm",
+        "runtimeArgs": ["processEntries"],
+        "skipFiles": ["<node_internals>/**"],
+        "console": "integratedTerminal"
       }
     ]
   }
