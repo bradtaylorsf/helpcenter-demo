@@ -5,8 +5,8 @@ import Cookies from 'js-cookie';
 import PersonaPicker from '../components/PersonaPicker';
 import contentfulClient from '../lib/contentfulClient';
 import initialPersona from '../lib/initialPersona';
-
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import getChatflowConfig from '../lib/getChatflowConfig';
+import getChatflowTheme from '../lib/getChatflowTheme';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import dynamic from 'next/dynamic';
 const BubbleChat = dynamic(() => import('flowise-embed-react').then((mod) => ({ default: mod.BubbleChat })), {
@@ -36,6 +36,10 @@ const extractTagsFromRichText = (richTextDocument) => {
 export default function Home() {
   const [articles, setArticles] = useState([]);
   const [selectedPersona, setSelectedPersona] = useState(initialPersona);
+
+  const chatflowConfig = getChatflowConfig(selectedPersona);
+  const theme = getChatflowTheme(selectedPersona);
+
 
   useEffect(() => {
     contentfulClient.getEntries({ content_type: 'helpCenterArticle' })
@@ -79,46 +83,7 @@ export default function Home() {
     return 'border-gray-200'; // Default border color
   };
 
-  const handleFetchArticlesClick = async () => {
-    // await fetchEntriesForContentType('helpCenterArticle');
-    // await fetchEntriesForContentType('ripplingHelpArticle');
-  };
 
-  const chatflowConfig = {
-    "pineconeMetadataFilter": {
-      "$or": [
-        {
-          "planType": {
-            "$eq": selectedPersona.planType
-          }
-        },
-        {
-          "userPersona": {
-            "$in": [
-              selectedPersona.userPersona,
-            ]
-          }
-        },
-        {
-          "location": {
-            "$eq": selectedPersona.location,
-          }
-        }
-      ]
-    },
-    "systemMessagePrompt": `
-    You are a helpful assistant for a company called AnswerAI.
-    You answer questions about the company's products and services and give users basic account information.
-    You have access to help center articles and the user infromation, role, plan type and location.
-    Answer the users query to the best of your ability based on the context provided. If you are unable to answer the query, you can transfer the conversation to a human agent.
-    You are currently helping the following user:
-    User Name: ${selectedPersona.name}
-    User Plan Type: ${selectedPersona.planType}
-    User Role: ${selectedPersona.userPersona} 
-    User Location: ${selectedPersona.location}
-    When giving responses always keep in mind the user's role and location and provide the most relevant information. Always greet the user and ask for their query. If you are unable to answer the query, you can transfer the conversation to a human agent.
-    `,
-  }
 
 
   return (
@@ -129,7 +94,6 @@ export default function Home() {
         {filteredArticles.map(article => (
           <li key={article.sys.id} className={`transition transform hover:scale-105 duration-300 ease-in-out bg-white shadow-lg rounded-lg p-6 border-4 ${getBorderColorClass(article.fields.planType)}`}>
             <Link href={`/article/${article.sys.id}`} className="text-2xl font-bold hover:text-blue-500">
-
               {article.fields.articleTitle}
             </Link>
             {/* Assuming tags are an array of strings under article.fields.tags */}
@@ -143,7 +107,7 @@ export default function Home() {
           </li>
         ))}
       </ul>
-      <BubbleChat chatflowid="c8b61941-f80a-4019-8a89-e4e1e6118816" apiHost="http://localhost:3000" chatflowConfig={chatflowConfig} />
+      <BubbleChat chatflowid="0815d6ca-5a13-45a1-9694-b6f24d102214" apiHost="https://chatflow.theanswer.ai" theme={theme} chatflowConfig={chatflowConfig} />
     </div>
   );
 }
