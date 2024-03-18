@@ -24,9 +24,9 @@ This project is a Next.js demo for AnswerAI's Help Center, designed to showcase 
 
 ### Tech Stack
 
-- **Frontend:** Next.js
-- **CMS:** Contentful
-- **AI:** OpenAI and Pinecone
+- **Frontend:** [Next.js](https://nextjs.org/)
+- **CMS:** [Contentful](https://www.contentful.com/)
+- **AI:** [Flowise](https://github.com/FlowiseAI/Flowise) or [AnswerAI Enterprise](https://theanswer.ai/)
 - **Package Manager:** pnpm
 
 ## Getting Started
@@ -37,6 +37,7 @@ This project is a Next.js demo for AnswerAI's Help Center, designed to showcase 
 - A Contentful account with a configured space for the help center articles
 - An OpenAI API key for AI interactions
 - A Pinecone account and API key for content memorization
+- Flowise installed OR an AnswerAI Enterprise Account
 
 ### Setup
 
@@ -66,7 +67,13 @@ OPENAI_API_KEY=<Your_OpenAI_API_Key>
 PINECONE_API_KEY=<Your_Pinecone_API_Key>
 ```
 
-4. **Running the project locally:**
+4. Import the Workflow to Flowise or AnswerAI
+-Follow the instructions here to install Flowise locally, or visit AnswerAI to signup for the enterprise beta.
+- Create a new workflow, and in the upper right choose click on the gear. Here you can import the `Help Center Demo Chatflow.json` file.
+- Attach your Pinecone and OpenAI API keys. 
+- NOTE: The Contentful DocumentLoader is only on AnswerAI enterprise at the moment so you will need to load the content into Pinecone yourself if using Flowise. 
+
+5. **Running the project locally:**
 
 To start the development server, run:
 
