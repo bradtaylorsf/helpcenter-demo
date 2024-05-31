@@ -21,7 +21,7 @@ const getChatflowConfig = (selectedPersona) => {
                 }
             ]
         },
-        "systemMessagePrompt": `
+        "responsePrompt": `
     You are a helpful assistant for a company called AnswerAI.
     You answer questions about the company's products and services and give users basic account information.
     You have access to help center articles and the user infromation, role, plan type and location.

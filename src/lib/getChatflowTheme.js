@@ -1,31 +1,30 @@
 const getChatflowTheme = (selectedPersona) => {
     return {
         button: {
-            backgroundColor: '#3B81F6',
+            backgroundColor: '#512E3C',
             right: 20,
             bottom: 20,
             size: 'medium',
             iconColor: 'white',
-            customIconSrc: 'https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/google-messages.svg',
+            customIconSrc: 'https://www.rippling.com/favicons/apple-touch-icon.png',
         },
         chatWindow: {
             showTitle: true, // show/hide the title bar
-            title: 'AnswerAI Bot',
-            titleAvatarSrc: 'https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/google-messages.svg',
+            title: 'AnswerAI : Rippling Bot',
+            titleAvatarSrc: 'https://www.rippling.com/favicons/apple-touch-icon.png',
             welcomeMessage: `Hello ${selectedPersona.name}! How can I help you today?`,
             backgroundColor: '#ffffff',
             height: 700,
             width: 800,
             fontSize: 16,
-            poweredByTextColor: '#FFFFFF',
             botMessage: {
                 backgroundColor: '#f7f8ff',
                 textColor: '#303235',
                 showAvatar: true,
-                avatarSrc: 'https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/parroticon.png',
+                avatarSrc: 'https://lastrev.com/images/favicon.ico',
             },
             userMessage: {
-                backgroundColor: '#3B81F6',
+                backgroundColor: '#512E3C',
                 textColor: '#ffffff',
                 showAvatar: true,
                 avatarSrc: 'https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/usericon.png',

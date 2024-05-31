@@ -5,7 +5,7 @@ const OpenAI = require('openai');
 const { Pinecone } = require('@pinecone-database/pinecone');
 const { documentToPlainTextString } = require('@contentful/rich-text-plain-text-renderer');
 
-const INDEX_NAME = "answers-dev";
+const INDEX_NAME = "answerai-demo-sandbox";
 const NAMESPACE = "helpcenter-demo";
 
 const openai = new OpenAI({

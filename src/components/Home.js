@@ -9,7 +9,7 @@ import getChatflowConfig from '../lib/getChatflowConfig';
 import getChatflowTheme from '../lib/getChatflowTheme';
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import dynamic from 'next/dynamic';
-const BubbleChat = dynamic(() => import('flowise-embed-react').then((mod) => ({ default: mod.BubbleChat })), {
+const BubbleChat = dynamic(() => import('aai-embed-react').then((mod) => ({ default: mod.BubbleChat })), {
   ssr: false,
 });
 
@@ -107,7 +107,7 @@ export default function Home() {
           </li>
         ))}
       </ul>
-      <BubbleChat chatflowid="0815d6ca-5a13-45a1-9694-b6f24d102214" apiHost="https://chatflow.theanswer.ai" theme={theme} chatflowConfig={chatflowConfig} />
+      <BubbleChat chatflowid="5e8cef7c-132a-4e53-8611-c0b382d767b9" apiHost="https://staging.flowise.theanswer.ai" theme={theme} chatflowConfig={chatflowConfig} />
     </div>
   );
 }

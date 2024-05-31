@@ -17,18 +17,18 @@ dependencies:
   '@pinecone-database/pinecone':
     specifier: ^2.0.1
     version: 2.0.1
+  aai-embed:
+    specifier: ^1.2.1
+    version: 1.2.1
+  aai-embed-react:
+    specifier: ^1.0.3
+    version: 1.0.3(aai-embed@1.2.1)(react-dom@18.0.0)(react@18.0.0)(typescript@5.3.3)
   contentful:
     specifier: ^10.6.21
     version: 10.6.21
   dotenv:
     specifier: ^16.4.2
     version: 16.4.2
-  flowise-embed:
-    specifier: ^1.0.18
-    version: 1.0.18
-  flowise-embed-react:
-    specifier: ^1.0.2
-    version: 1.0.2(flowise-embed@1.0.18)(react-dom@18.0.0)(react@18.0.0)(typescript@5.3.3)
   gpt3-tokenizer:
     specifier: ^1.1.5
     version: 1.1.5
@@ -2314,6 +2314,44 @@ packages:
       - supports-color
     dev: false
 
+  /aai-embed-react@1.0.3(aai-embed@1.2.1)(react-dom@18.0.0)(react@18.0.0)(typescript@5.3.3):
+    resolution: {integrity: sha512-6wLk6ppAr4X/ZPPX0k3hWiATMDAiLjgwxae9Py0sVrmpkovSBLMGoh1ifDOUwYOb9l2Wyros2HEkmdsHX9N2HQ==}
+    peerDependencies:
+      aai-embed: '*'
+      react: 18.x
+    dependencies:
+      '@ladle/react': 2.5.1(react-dom@18.0.0)(react@18.0.0)(typescript@5.3.3)
+      aai-embed: 1.2.1
+      react: 18.0.0
+    transitivePeerDependencies:
+      - '@types/node'
+      - less
+      - lightningcss
+      - react-dom
+      - sass
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - typescript
+    dev: false
+
+  /aai-embed@1.2.1:
+    resolution: {integrity: sha512-WM2Mq1j/Z2Fo4uQCPazLMUFPbqsUCE0I2xfvkPf2BRwgCIHr2CldgWRI5/6gRZQDy4S+EzzqiwscQhteS4uX7w==}
+    dependencies:
+      '@babel/core': 7.23.9
+      '@ts-stack/markdown': 1.5.0
+      lodash: 4.17.21
+      prettier: 3.2.5
+      socket.io-client: 4.7.4
+      solid-element: 1.7.0(solid-js@1.7.1)
+      solid-js: 1.7.1
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+    dev: false
+
   /abort-controller@3.0.0:
     resolution: {integrity: sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==}
     engines: {node: '>=6.5'}
@@ -3790,44 +3828,6 @@ packages:
   /flatted@3.2.9:
     resolution: {integrity: sha512-36yxDn5H7OFZQla0/jFJmbIKTdZAQHngCedGxiMmpNfEZM0sdEeT+WczLQrjK6D7o2aiyLYDnkw0R3JK0Qv1RQ==}
     dev: true
-
-  /flowise-embed-react@1.0.2(flowise-embed@1.0.18)(react-dom@18.0.0)(react@18.0.0)(typescript@5.3.3):
-    resolution: {integrity: sha512-M6rDofJWTWI9rtZN7G3oTlqAcQaHoF/IUIoW1YitHsjKly24awq5sky+0Wfkcg4VfoXz3SiLHMZ/XOF4PDuvqA==}
-    peerDependencies:
-      flowise-embed: '*'
-      react: 18.x
-    dependencies:
-      '@ladle/react': 2.5.1(react-dom@18.0.0)(react@18.0.0)(typescript@5.3.3)
-      flowise-embed: 1.0.18
-      react: 18.0.0
-    transitivePeerDependencies:
-      - '@types/node'
-      - less
-      - lightningcss
-      - react-dom
-      - sass
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-      - typescript
-    dev: false
-
-  /flowise-embed@1.0.18:
-    resolution: {integrity: sha512-3qE91brnMmjQia49kKoA4AVyXU4Q9W50GrO48ONeMn4ayNwgSdOeY9uC2gx1YFU/JKNSOVu8HeTgoG6O2q7pWQ==}
-    dependencies:
-      '@babel/core': 7.23.9
-      '@ts-stack/markdown': 1.5.0
-      lodash: 4.17.21
-      prettier: 3.2.5
-      socket.io-client: 4.7.4
-      solid-element: 1.7.0(solid-js@1.7.1)
-      solid-js: 1.7.1
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-    dev: false
 
   /follow-redirects@1.15.5:
     resolution: {integrity: sha512-vSFWUON1B+yAw1VN4xMfxgn5fTUiaOzAJCKBwIIgT/+7CuGy9+r+5gITvP62j3RmaD5Ph65UaERdOSRGUzZtgw==}
